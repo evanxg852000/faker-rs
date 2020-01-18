@@ -1,0 +1,15 @@
+[package]
+name = "faker-rs"
+version = "0.1.0"
+authors = ["Evance Soumaoro <evanxg852000@gmail.com>"]
+edition = "2018"
+description = "A fake data generator to make you dev life easier"
+repository = "https://github.com/evanxg852000/faker-rs"
+readme = "README.md"
+license = "MIT"
+
+[dependencies]
+faker = { path = "./faker" }
+
+[workspace]
+members = [ "faker", "server" ]

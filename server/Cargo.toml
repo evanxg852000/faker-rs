@@ -1,0 +1,8 @@
+[package]
+name = "faker-server"
+version = "0.1.0"
+authors = ["Evance Soumaoro <evanxg852000@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+faker = { path = "../faker" }

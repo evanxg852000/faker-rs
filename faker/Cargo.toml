@@ -1,0 +1,11 @@
+[package]
+name = "faker"
+version = "0.1.0"
+authors = ["Evance Soumaoro <evanxg852000@gmail.com>"]
+edition = "2018"
+
+
+[dependencies]
+rand = "0.7.3"
+uuid = { version = "0.8.1", features = ["v3", "v4", "v5"] }
+regex = "1.3.3"
