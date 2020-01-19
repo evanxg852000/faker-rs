@@ -69,7 +69,7 @@ impl Fixed {
     pub fn string(&self, params: Vec<&str>) -> FakerValue {
         match params.len() {
             0 => FakerValue::Error(String::from("Err: engine not initialised.")),
-            _ => FakerValue::String(params[0].to_string()),
+            _ => FakerValue::Str(params[0].to_string()),
         }
     }
 

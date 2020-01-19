@@ -1,3 +1,4 @@
+use std::fmt;
 use std::rc::Rc;
 use std::cell::RefCell;
 
@@ -90,8 +91,12 @@ impl Engine {
             "fixed.bool" => self.fixed.boolean(params),
             "fixed.str" => self.fixed.string(params),
 
+            //TODO load locale files, names bundle, name generator, tests
+            //TODO server[core, json, csv]
+            //TODO docs, video, feedback
 
-            // fix [int:val, bool:val, null:val, float:val, str:val]
+
+            // fixed [int:val, bool:val, null:val, float:val, str:val]
             // fake [int, float, bool]
             // address
             // commerce
@@ -110,7 +115,18 @@ impl Engine {
     }
 
     fn get_combine(&self, format: String, exprs: Vec<&str>) -> FakerValue {
-        FakerValue::Bool(true)
+        let mut vals = vec![];
+        for expr in exprs.iter() {
+            match self.get_single(expr) {
+                FakerValue::Error(e) => return FakerValue::Error(e),
+                v => vals.push(v), 
+            };
+        }
+
+        let s = vals
+            .iter()
+            .fold(format, |acc, v| acc.replacen("{}", v.to_string().as_str(), 1));
+        FakerValue::Str(s)
     }
 
 }
@@ -121,7 +137,22 @@ pub enum FakerValue {
     Bool(bool),
     Int(i64),
     Float(f64),
-    String(String),
+    Str(String),
     //Array(Vec<FakerValue>),
     Error(String),
 }
+
+
+impl fmt::Display for FakerValue {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            FakerValue::Null(s) => write!(f, "{}", s),
+            FakerValue::Bool(b) => write!(f, "{}", b),
+            FakerValue::Int(n) => write!(f, "{}", n),
+            FakerValue::Float(n) => write!(f, "{}", n),
+            FakerValue::Str(s) => write!(f, "{}", s),
+            FakerValue::Error(s) => write!(f, "{}", s),
+        }
+    }
+}
+
