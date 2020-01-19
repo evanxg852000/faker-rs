@@ -1,6 +1,8 @@
 ## Faker-RS
 
 
+```rust
+Ask ?
 impl FakerValue {
     pub fn as_str(&self) -> &str{
         match self {
@@ -13,3 +15,4 @@ impl FakerValue {
         }
     }
 }
+```
